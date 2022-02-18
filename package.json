@@ -1,0 +1,47 @@
+{
+  "name": "koa4typescript",
+  "version": "1.0.0",
+  "description": "use ts in koa2",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json src/server.ts",
+    "start": "tsc && cross-env NODE_ENV=development node dist/server.js",
+    "build": "tsc"
+  },
+  "keywords": [
+    "koa",
+    "typescript"
+  ],
+  "author": "chrislee0211",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ioredis": "^4.0.18",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/log4js": "^2.3.5",
+    "@types/socket.io": "^2.1.4",
+    "@types/vfile-message": "^2.0.0",
+    "cross-env": "^6.0.3",
+    "http-proxy-middleware": "^2.0.3",
+    "ioredis": "^4.14.1",
+    "koa": "^2.10.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-conditional-get": "^3.0.0",
+    "koa-etag": "^4.0.0",
+    "koa-history-api-fallback-middleware": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-static": "^1.0.1",
+    "log4js": "^5.3.0",
+    "mockjs": "^1.1.0",
+    "nodemon": "^2.0.7",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/http-proxy-middleware": "^1.0.0",
+    "@types/koa": "^2.0.51",
+    "@types/koa-router": "^7.0.42",
+    "koa2-proxy-middleware": "^0.0.4",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}
