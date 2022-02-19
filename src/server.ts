@@ -9,7 +9,7 @@ import { setupBasicProxy, setupNetworkProxy, setupStaticProxy } from "./proxy/in
 // 中间件
 import cors from './middleware/cors';
 import bodyParser from 'koa-bodyparser';
-import { setupStaticResource } from './static';
+import { setupStaticResource } from './middleware/static';
 import setupMock from './mocks';
 import Router from 'koa-router';
 import conditional from 'koa-conditional-get'
@@ -28,10 +28,14 @@ const PORT: number | string = getConfig(env).basePort;
 app.use(cors);
 app.use(logMiddle());
 setupStaticResource(app); // static
-setupBasicProxy(app); // proxy
-app.use(bodyParser()); // bodyParser会导致proxy中的POST等失效
+
+// app.use(bodyParser({})); // bodyParser会导致proxy中的POST等失效, 请转移到router里面
+
 setupMock(app); //mock
 setupRouter(app); //router
+setupBasicProxy(app); // proxy
+
+
 server.listen(app.listen(PORT)); // 监听应用端口
 
 /**
@@ -47,8 +51,7 @@ server2.listen(app2.listen(9019));
  */
 const app3 = new Koa();
 const server3 = http.createServer(app3.callback());
-app3.use(logMiddle());
-
+app3.use(logMiddle()); 
 app3.use(conditional());
 app3.use(etag());
 setupStaticResource(app3); // static
@@ -61,7 +64,6 @@ global.log.error(`----------------------------------------------`);
 global.log.info(`Basic   Server running on port http://10.0.16.77:${PORT}`);
 global.log.info(`Network Server running on port http://10.0.16.77:9019`);
 global.log.info(`Static  Server running on port http://10.0.16.77:${9097}`);
-
 
 /**
  * [测试服务器]

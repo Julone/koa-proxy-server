@@ -25,9 +25,8 @@ const options: { targets: { [proxyName: string]: Options } } = {
             target: 'http://10.0.0.140:10099/',
             changeOrigin: false, //使用自己的
             pathRewrite: {
-
                 '^/api': '/'
-            }
+            },
         }
     }
 }
@@ -46,7 +45,7 @@ export function setupNetworkProxy(app, port = 4200) {
             },
         }
     }
-    app.use( (ctx: Koa.Context, next) => {
+    app.use((ctx: Koa.Context, next) => {
         function getClientIP(req) {
             return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
             req.connection?.remoteAddress || // 判断 connection 的远程 IP

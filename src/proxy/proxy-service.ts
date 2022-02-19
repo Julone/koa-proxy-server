@@ -1,6 +1,5 @@
 import httpProxy, { Options } from 'koa2-proxy-middleware/node_modules/http-proxy-middleware'
-import  { Options as Options2 } from 'http-proxy-middleware'
-
+import  { Options as Options2 ,fixRequestBody} from 'http-proxy-middleware'
 
 export default (config, options = null) => {
   const k2c = require('koa2-connect');
@@ -8,11 +7,6 @@ export default (config, options = null) => {
   return async function (ctx, next) {
     const commonOptions: Options2 = options || {
       logLevel: 'error',
-      onProxyReq:(req, req2)=>{
-        // console.log(req.host, req)
-       
-      },
-    
     }
     const { targets = {} } = config;
     const { path } = ctx;
