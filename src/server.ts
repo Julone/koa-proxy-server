@@ -14,6 +14,8 @@ import setupMock from './mocks';
 import Router from 'koa-router';
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
+import setupSocket from './socket';
+import session from './middleware/session';
 // 通用设置
 globalLogger()
 //环境
@@ -27,17 +29,16 @@ const server = http.createServer(app.callback());
 const PORT: number | string = getConfig(env).basePort;
 app.use(cors);
 app.use(logMiddle());
+session(app)
 setupStaticResource(app); // static
-
+const io = setupSocket(server); //web socket
 // app.use(bodyParser({})); // bodyParser会导致proxy中的POST等失效, 请转移到router里面
-
 setupMock(app); //mock
 setupRouter(app); //router
 setupBasicProxy(app); // proxy
 
-
 server.listen(app.listen(PORT)); // 监听应用端口
-
+export {io, app};
 /**
  * [网络服务器]
  */

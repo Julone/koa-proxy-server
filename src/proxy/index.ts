@@ -1,7 +1,7 @@
 import { Options } from 'http-proxy-middleware/dist/types';
 import * as Koa from 'koa';
 import Router from 'koa-router';
-import proxy from './proxy-service'//引入代理模块
+import proxy from './proxy-service'; //引入代理模块
 
 const api = [
     '/upr-luamemory',
@@ -55,7 +55,7 @@ export function setupNetworkProxy(app, port = 4200) {
         const ipv6 = getClientIP(ctx.request);
 
         if([/\/assets/, /\.js/,/.woff2/, /\/sockjs-node/, /\.css/, /\.(png|jpeg)/, /\/SCREEN/].every(el=> !el.test(ctx.req.url) )){
-            global.log.warn(`host: ${ipv6}, url: ${ctx.req.url}`);
+            global.log.warn(`Host: ${ipv6}, Time:${new Date().toLocaleString()} Url: ${ctx.req.url}`);
         }
         clearTimeout(global.timer);
         global.timer = setTimeout(()=> {
